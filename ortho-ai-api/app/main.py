@@ -13,7 +13,7 @@ from exceptions.exceptions import (
     ResourceNotFoundError
 )
 
-from routes.router import base_router as router
+from api.v1.router import base_router as router
 
 from core.config import API_PREFIX, DEBUG, PROJECT_NAME, VERSION
 
