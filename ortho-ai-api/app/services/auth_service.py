@@ -1,5 +1,5 @@
 from fastapi import HTTPException, status
-from models.auth_model import LoginRequest
+from schemas.auth_request import LoginRequest
 
 def process_login(login_request: LoginRequest):
     username = login_request.username

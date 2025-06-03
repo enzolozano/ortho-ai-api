@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from models.auth_model import LoginRequest
+from models.auth import LoginRequest
 from services.auth_service import process_login
 
 router = APIRouter()
