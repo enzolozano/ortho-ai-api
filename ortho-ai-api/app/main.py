@@ -7,6 +7,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from typing import Callable
 from loguru import logger
+from data.database import engine, Base
+from models import users
 
 from exceptions.exceptions import (
     OrthoAiApiError,
@@ -14,10 +16,18 @@ from exceptions.exceptions import (
 )
 
 from api.v1.router import base_router as router
-
 from core.config import API_PREFIX, DEBUG, PROJECT_NAME, VERSION
 
-app = FastAPI(title=PROJECT_NAME, debug=DEBUG, version=VERSION)
+app = FastAPI(
+    title=PROJECT_NAME, 
+    debug=DEBUG, 
+    version=VERSION,
+    description="API para gerenciamento de pacientes e médicos com leitura de Raio-X por inteligência artificial",
+    contact={
+        "name": "Equipe de TCC - Curso de Ciência da Computação",
+        "email": "enzo.malozano@gmail.com"
+    }
+)
 app.include_router(router, prefix=API_PREFIX)
 
 app.add_middleware(
@@ -27,6 +37,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+Base.metadata.create_all(bind=engine)
 
 @app.get("/")
 def read_root(): 
