@@ -4,3 +4,4 @@ uvicorn
 sqlalchemy
 pydantic
 db-sqlite3
+bcrypt
