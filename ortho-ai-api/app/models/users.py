@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Date, DateTime
+from sqlalchemy.orm import relationship
 from data.database import Base
-
 
 class User(Base):
     __tablename__ = "users"
@@ -14,3 +14,5 @@ class User(Base):
     birth_date = Column(Date)
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
+
+    login = relationship("UserLogin", back_populates="user", uselist=False)
