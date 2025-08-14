@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
-from datetime import date
+from datetime import date, datetime
 
 class UserCreate(BaseModel):
     name: str
@@ -18,3 +18,4 @@ class UserResponse(BaseModel):
     photo_url: str
     role: int
     birth_date: date
+    created_at: datetime

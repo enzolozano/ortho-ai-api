@@ -16,6 +16,15 @@ router = APIRouter()
 async def create_user(user: user_schema.UserCreate, db: Session = Depends(get_db)):
     return user_service.create_user(db=db, user=user)
 
+@router.put(
+    "/{user_id}",
+    response_model=user_schema.UserResponse,
+    summary="Atualuzar um usuário existente",
+    description="Atualiza um usuário já existente no sistema com os dados fornecidos."
+)
+async def update_user(user_id: int, user: user_schema.UserCreate, db: Session = Depends(get_db)):
+    return user_service.update_user(db=db, user=user, user_id=user_id)
+
 @router.get(
     "/", 
     response_model=List[user_schema.UserResponse],
