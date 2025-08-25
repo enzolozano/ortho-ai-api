@@ -15,7 +15,7 @@ DEBUG: bool = config("DEBUG", cast=bool, default=False)
 PROJECT_NAME: str = config("PROJECT_NAME", default="ortho-ai")
 
 # logging configuration
-LOGGING_LEVEL = logging.DEBUG if DEBUG else logging.info
+LOGGING_LEVEL = logging.DEBUG if DEBUG else logging.INFO
 logging.basicConfig(
     handlers=[InterceptHandler(level=LOGGING_LEVEL)], level=LOGGING_LEVEL
 )
