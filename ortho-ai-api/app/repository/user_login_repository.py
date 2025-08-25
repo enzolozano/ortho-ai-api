@@ -29,3 +29,10 @@ def register(db: Session, register_request: RegisterRequest):
     db.commit()
     db.refresh(db_user_login)
     return db_user_login
+
+def delete_user_login(db: Session, user_id: int):
+    db_user_login = db.query(UserLogin).filter(UserLogin.user_id == user_id).first()
+    if db_user_login is None:
+        return None
+    db.delete(db_user_login)
+    db.commit()

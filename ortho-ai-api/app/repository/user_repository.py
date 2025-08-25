@@ -22,6 +22,12 @@ def create_user(db: Session, user: UserCreate):
     db.refresh(db_user)
     return db_user
 
+def update_user(db: Session, db_user: User):
+    db.merge(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
 def delete_user(db: Session, user_id: int):
     user = db.query(User).filter(User.id == user_id).first()
     if user is None:
