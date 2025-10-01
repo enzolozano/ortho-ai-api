@@ -8,7 +8,7 @@ from fastapi.responses import JSONResponse
 from typing import Callable
 from loguru import logger
 from data.database import engine, Base
-from models import users
+from core.init_admin import create_default_admin
 
 from exceptions.exceptions import (
     OrthoAiApiError,
@@ -39,6 +39,10 @@ app.add_middleware(
 )
 
 Base.metadata.create_all(bind=engine)
+
+@app.on_event("startup")
+def startup_event():
+    create_default_admin()
 
 @app.get("/")
 def read_root(): 

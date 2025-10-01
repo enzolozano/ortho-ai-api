@@ -16,6 +16,16 @@ def get_by_login_request(db: Session, login_request: LoginRequest):
         return user
     else:
         return None
+    
+def get_by_user_id(db: Session, user_id: int):
+    auth = db.query(UserLogin).filter(
+        UserLogin.user_id == user_id
+    ).first()
+
+    if auth:
+        return auth
+    else:
+        return None
 
 def register(db: Session, register_request: RegisterRequest):
     db_user_login = UserLogin(

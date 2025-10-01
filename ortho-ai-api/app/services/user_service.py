@@ -41,6 +41,7 @@ def update_user(db: Session, user: UserCreate, user_id: int):
     
     db_user.name = user.name
     db_user.email = user.email
+    db_user.document = user.document
     db_user.phone = user.phone
     db_user.photo_url = user.photo_url
     db_user.birth_date = user.birth_date
