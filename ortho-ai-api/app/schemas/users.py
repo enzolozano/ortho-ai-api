@@ -5,6 +5,7 @@ from datetime import date, datetime
 class UserCreate(BaseModel):
     name: str
     email: str
+    document: object
     phone: Optional[str] = None
     photo_url: Optional[str] = None
     role: int
@@ -14,6 +15,7 @@ class UserResponse(BaseModel):
     id: int
     name: str
     email: str
+    document: object
     phone: str
     photo_url: str
     role: int

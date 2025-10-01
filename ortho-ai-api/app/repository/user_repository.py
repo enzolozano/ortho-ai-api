@@ -2,6 +2,8 @@ from sqlalchemy.orm import Session
 from models.users import User
 from schemas.users import UserCreate
 from datetime import datetime
+import json
+
 
 def list_users(db: Session):
     return db.query(User).order_by(User.id)
@@ -16,7 +18,7 @@ def get_user_by_email(db: Session, email: str):
     return db.query(User).filter(User.email == email).first()
 
 def create_user(db: Session, user: UserCreate):
-    db_user = User(name=user.name, email=user.email, phone=user.phone, photo_url=user.photo_url, role=user.role, birth_date=user.birth_date, created_at=datetime.now(),updated_at=datetime.now())
+    db_user = User(name=user.name, email=user.email, document=json.dumps(user.document), phone=user.phone, photo_url=user.photo_url, role=user.role, birth_date=user.birth_date, created_at=datetime.now(),updated_at=datetime.now())
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
