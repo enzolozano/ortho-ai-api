@@ -20,6 +20,22 @@ def get_user(db: Session, user_id: int):
 def get_users_by_role(db: Session, role: int):
     return user_repository.get_users_by_role(db, role=role)
 
+def get_patients_by_doctor(db: Session, doctor_id: int):
+    doctor = user_repository.get_user(db, user_id=doctor_id)
+    if doctor is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Médico de id {doctor_id} não encontrado",
+            headers={"WWW-Authenticate": "Bearer"}
+        )
+    if doctor.role != 1:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Id informado não percente a um médico",
+            headers={"WWW-Authenticate": "Bearer"}
+        )
+    return doctor.patients
+
 def create_user(db: Session, user: UserCreate):
     db_user = user_repository.get_user_by_email(db, email=user.email)
     if db_user:
@@ -41,6 +57,7 @@ def update_user(db: Session, user: UserCreate, user_id: int):
     
     db_user.name = user.name
     db_user.email = user.email
+    db_user.document = user.document
     db_user.phone = user.phone
     db_user.photo_url = user.photo_url
     db_user.birth_date = user.birth_date

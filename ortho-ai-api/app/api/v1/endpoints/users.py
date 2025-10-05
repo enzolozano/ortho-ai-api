@@ -52,6 +52,15 @@ async def get_user(user_id: int, db: Session = Depends(get_db)):
 async def get_users_by_role(role: int, db: Session = Depends(get_db)):
     return user_service.get_users_by_role(db, role=role)
 
+@router.get(
+    "/patients/by_doctor/{doctor_id}",
+    response_model=List[user_schema.UserResponse],
+    summary="Listar os pacientes a partir do médico responsável",
+    description="Retorna uma lista dos pacientes a partir do id do médico responsável"
+)
+async def get_patients_by_doctor(doctor_id: int, db: Session = Depends(get_db)):
+    return user_service.get_patients_by_doctor(db, doctor_id=doctor_id)
+
 @router.delete(
     "/{user_id}",
     summary="Excluir um usuário pelo id",
