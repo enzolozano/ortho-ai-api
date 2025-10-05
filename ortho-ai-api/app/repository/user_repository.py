@@ -19,6 +19,18 @@ def get_user_by_email(db: Session, email: str):
 
 def create_user(db: Session, user: UserCreate):
     db_user = User(name=user.name, email=user.email, document=json.dumps(user.document), phone=user.phone, photo_url=user.photo_url, role=user.role, birth_date=user.birth_date, created_at=datetime.now(),updated_at=datetime.now())
+
+    if user.responsible_doctor:
+        doctor = get_user(db, user_id=user.responsible_doctor)
+
+        if not doctor:
+            raise ValueError("Médico informado não encontrado.")
+        
+        if doctor.role != 1:
+            raise ValueError("Usuário informado não é um médico.")
+        
+        doctor.patients.append(db_user)
+
     db.add(db_user)
     db.commit()
     db.refresh(db_user)

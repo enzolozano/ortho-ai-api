@@ -6,10 +6,11 @@ class UserCreate(BaseModel):
     name: str
     email: str
     document: object
-    phone: Optional[str] = None
-    photo_url: Optional[str] = None
+    phone: str
+    responsible_doctor: Optional[int] = None
+    photo_url: str
     role: int
-    birth_date: Optional[date] = None
+    birth_date: date
 
 class UserResponse(BaseModel):
     id: int
