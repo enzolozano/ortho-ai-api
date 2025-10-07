@@ -5,7 +5,6 @@ from data.database import engine, SessionLocal, Base
 from models.users import User
 from models.user_login import UserLogin
 from core.security import hash_password
-import json
 
 app = FastAPI()
 
